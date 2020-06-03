@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
         session[:token] = GithubService.new.authenticate!(ENV["GITHUB_CLIENT"],
+     ENV["GITHUB_SECRET"], params[:code])
 
 
     user_response = Faraday.get "https://api.github.com/user", {}, {'Authorization' => "token #{session[:token]}", 'Accept' => 'application/json'}
